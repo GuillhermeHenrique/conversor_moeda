@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { getConverter, getCountryFlag, getCoinCode } from "./api/requests";
 
 import "./App.css";
+import Select from "react-select";
+import { GoArrowSwitch } from "react-icons/go";
 
 function App() {
   const [conversion, setConversion] = useState<number | null>(null);
-  const [flags, setFlags] = useState<string[]>([]);
-  const [coinCode, setCoinCode] = useState<string[]>([]);
+  const [coins, setCoins] = useState<{ code: string; flag: string }[]>([]);
   const [coinPrimary, setCoinPrimary] = useState<string>("");
   const [coinSecundary, setCoinSecundary] = useState<string>("");
 
@@ -21,66 +22,75 @@ function App() {
   };
 
   useEffect(() => {
-    const handleCoinCode = async () => {
+    const handleCoinsAndFlags = async () => {
       try {
         const coinData = await getCoinCode();
+        const codes = Object.keys(coinData);
 
-        const key = Object.keys(coinData).slice(0, 30);
+        const flags = await Promise.all(
+          codes.map((code) => getCountryFlag(code))
+        );
 
-        setCoinCode(key);
+        const combined = codes.map((code, index) => ({
+          code,
+          flag: flags[index],
+        }));
+
+        setCoins(combined);
       } catch (error) {
         console.log(error);
       }
     };
 
-    handleCoinCode();
+    handleCoinsAndFlags();
   }, []);
 
-  useEffect(() => {
-    const handleFlags = async () => {
-      try {
-        if (coinCode.length > 0) {
-          const countryFlags = await Promise.all(
-            coinCode.map((code) => getCountryFlag(code))
-          );
-
-          setFlags(countryFlags);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    handleFlags();
-  }, [coinCode]);
+  const options = coins.map((coin) => ({
+    value: coin.code,
+    label: (
+      <div key={coin.code} className="option">
+        <img src={coin.flag} alt={coin.code} className="image-select" />
+        {coin.code}
+      </div>
+    ),
+  }));
 
   return (
     <div className="App">
-      <select onChange={(e) => setCoinPrimary(e.target.value)}>
-        {coinCode?.map((coin) => (
-          <option key={coin} value={coin}>
-            {coin}
-          </option>
-        ))}
-      </select>
-      <select onChange={(e) => setCoinSecundary(e.target.value)}>
-        {coinCode?.map((coin) => (
-          <option key={coin} value={coin}>
-            {coin}
-          </option>
-        ))}
-      </select>
-      <button
-        type="submit"
-        onClick={() => handleConversion(coinPrimary, coinSecundary)}
-      >
-        Calcular
-      </button>
-      <h2>{conversion}</h2>
-      <div>
-        {flags?.map((flag, index) => (
-          <img key={index} src={flag} alt="flag" />
-        ))}
+      <div className="container">
+        <div className="title">
+          <p>Conversor de Moeda</p>
+        </div>
+        <div className="container-select">
+          <Select
+            options={options}
+            className="select"
+            classNamePrefix="my"
+            onChange={(selectedOption) =>
+              setCoinPrimary(selectedOption?.value || "")
+            }
+            placeholder="Moeda Primária"
+          />
+          {/* 1 input */}
+          <GoArrowSwitch className="icon-arrows" />
+          <Select
+            options={options}
+            className="select"
+            classNamePrefix="my"
+            onChange={(selectedOption) =>
+              setCoinSecundary(selectedOption?.value || "")
+            }
+            placeholder="Moeda Secundária"
+          />
+        </div>
+        {/* 2 input */}
+        <button
+          type="submit"
+          onClick={() => handleConversion(coinPrimary, coinSecundary)}
+        >
+          Calcular
+        </button>
+        {conversion && <h2>{conversion.toFixed(2)}</h2>}
       </div>
     </div>
   );
