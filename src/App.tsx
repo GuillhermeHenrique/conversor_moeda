@@ -10,10 +10,11 @@ function App() {
   const [coins, setCoins] = useState<{ code: string; flag: string }[]>([]);
   const [coinPrimary, setCoinPrimary] = useState<string>("");
   const [coinSecundary, setCoinSecundary] = useState<string>("");
+  const [amount, setAmount] = useState<number>(1);
 
-  const handleConversion = async (from: string, to: string) => {
+  const handleConversion = async (from: string, to: string, amount: number) => {
     try {
-      const conversion = await getConverter(from, to);
+      const conversion = await getConverter(from, to, amount);
 
       setConversion(conversion);
     } catch (error) {
@@ -45,6 +46,12 @@ function App() {
     handleCoinsAndFlags();
   }, []);
 
+  useEffect(() => {
+    if (!coinPrimary || !coinSecundary || amount === 0) return;
+
+    handleConversion(coinPrimary, coinSecundary, amount);
+  }, [coinPrimary, coinSecundary, amount]);
+
   const options = coins.map((coin) => ({
     value: coin.code,
     label: (
@@ -55,42 +62,50 @@ function App() {
     ),
   }));
 
+  useEffect(() => {
+    if (options.length > 29) {
+      setCoinPrimary(options[29].value);
+    }
+    if (options.length > 2) {
+      setCoinSecundary(options[2].value);
+    }
+  }, [options]);
+
   return (
     <div className="App">
       <div className="container">
         <div className="title">
           <p>Conversor de Moeda</p>
         </div>
+        <div className="container-input">
+          <input
+            type="number"
+            defaultValue={1}
+            onChange={(e) => setAmount(Number(e.target.value))}
+          />
+          <input type="number" value={conversion?.toFixed(1) || ""} readOnly />
+        </div>
         <div className="container-select">
           <Select
             options={options}
+            value={options[29]}
             className="select"
             classNamePrefix="my"
             onChange={(selectedOption) =>
               setCoinPrimary(selectedOption?.value || "")
             }
-            placeholder="Moeda Primária"
           />
-          {/* 1 input */}
           <GoArrowSwitch className="icon-arrows" />
           <Select
             options={options}
+            value={options[2]}
             className="select"
             classNamePrefix="my"
             onChange={(selectedOption) =>
               setCoinSecundary(selectedOption?.value || "")
             }
-            placeholder="Moeda Secundária"
           />
         </div>
-        {/* 2 input */}
-        <button
-          type="submit"
-          onClick={() => handleConversion(coinPrimary, coinSecundary)}
-        >
-          Calcular
-        </button>
-        {conversion && <h2>{conversion.toFixed(2)}</h2>}
       </div>
     </div>
   );

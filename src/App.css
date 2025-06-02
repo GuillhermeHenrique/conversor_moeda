@@ -20,6 +20,35 @@
   margin-bottom: 10px;
 }
 
+.container-input input::-webkit-inner-spin-button,
+.container-input input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.container-input {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 45px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.container-input input {
+  width: 300px;
+  padding: 5px 5px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+  text-align: center;
+  font-size: 17px;
+  color: #303030;
+  transition: 0.4s;
+}
+
+.container-input input:hover {
+  border: 1px solid #9e9e9e;
+}
+
 .container-select {
   width: 100%;
   display: flex;

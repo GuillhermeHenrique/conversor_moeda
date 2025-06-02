@@ -1,10 +1,14 @@
 import axios from "axios";
 // import { useFlagResponse } from "../hooks/useFlags";
 
-export const getConverter = async (from: string, to: string) => {
+export const getConverter = async (
+  from: string,
+  to: string,
+  amount: number
+) => {
   try {
     const response = await axios.get(
-      `https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`
+      `https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}&amount=${amount}`
     );
 
     return response.data.rates[to];
