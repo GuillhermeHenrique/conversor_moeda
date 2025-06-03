@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getConverter, getCountryFlag, getCoinCode } from "./api/requests";
 
-import "./App.css";
 import Select from "react-select";
+
+import "./App.css";
 import { GoArrowSwitch } from "react-icons/go";
 
 function App() {
@@ -43,14 +44,24 @@ function App() {
       }
     };
 
+    console.log(amount);
+
     handleCoinsAndFlags();
   }, []);
 
   useEffect(() => {
-    if (!coinPrimary || !coinSecundary || amount === 0) return;
+    if (!coinPrimary || !coinSecundary || amount == 0 || amount == undefined)
+      return;
 
     handleConversion(coinPrimary, coinSecundary, amount);
   }, [coinPrimary, coinSecundary, amount]);
+
+  useEffect(() => {
+    if (coins.length > 0) {
+      setCoinPrimary(coins[29]?.code);
+      setCoinSecundary(coins[2]?.code);
+    }
+  }, [coins]);
 
   const options = coins.map((coin) => ({
     value: coin.code,
@@ -61,15 +72,6 @@ function App() {
       </div>
     ),
   }));
-
-  useEffect(() => {
-    if (options.length > 29) {
-      setCoinPrimary(options[29].value);
-    }
-    if (options.length > 2) {
-      setCoinSecundary(options[2].value);
-    }
-  }, [options]);
 
   return (
     <div className="App">
@@ -83,12 +85,12 @@ function App() {
             defaultValue={1}
             onChange={(e) => setAmount(Number(e.target.value))}
           />
-          <input type="number" value={conversion?.toFixed(1) || ""} readOnly />
+          <input type="number" value={conversion?.toFixed(2) || ""} readOnly />
         </div>
         <div className="container-select">
           <Select
             options={options}
-            value={options[29]}
+            value={options.find((option) => option.value === coinPrimary)}
             className="select"
             classNamePrefix="my"
             onChange={(selectedOption) =>
@@ -98,7 +100,7 @@ function App() {
           <GoArrowSwitch className="icon-arrows" />
           <Select
             options={options}
-            value={options[2]}
+            value={options.find((option) => option.value === coinSecundary)}
             className="select"
             classNamePrefix="my"
             onChange={(selectedOption) =>
