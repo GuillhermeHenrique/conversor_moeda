@@ -23,6 +23,11 @@ function App() {
     }
   };
 
+  const handleReverse = () => {
+    setCoinPrimary(coinSecundary);
+    setCoinSecundary(coinPrimary);
+  };
+
   useEffect(() => {
     const handleCoinsAndFlags = async () => {
       try {
@@ -97,7 +102,7 @@ function App() {
               setCoinPrimary(selectedOption?.value || "")
             }
           />
-          <GoArrowSwitch className="icon-arrows" />
+          <GoArrowSwitch className="icon-arrows" onClick={handleReverse} />
           <Select
             options={options}
             value={options.find((option) => option.value === coinSecundary)}
