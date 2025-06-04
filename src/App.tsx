@@ -8,7 +8,9 @@ import { GoArrowSwitch } from "react-icons/go";
 
 function App() {
   const [conversion, setConversion] = useState<number | null>(null);
-  const [coins, setCoins] = useState<{ code: string; flag: string }[]>([]);
+  const [coins, setCoins] = useState<
+    { code: string; flag: string | undefined }[]
+  >([]);
   const [coinPrimary, setCoinPrimary] = useState<string>("");
   const [coinSecundary, setCoinSecundary] = useState<string>("");
   const [amount, setAmount] = useState<number>(1);

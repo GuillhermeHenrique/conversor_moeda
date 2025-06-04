@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { useFlagResponse } from "../hooks/useFlags";
 
 export const getConverter = async (
   from: string,
@@ -23,9 +22,23 @@ export const getCountryFlag = async (countryCoin: string) => {
       `https://restcountries.com/v3.1/currency/${countryCoin}`
     );
 
-    // useFlagResponse(countryCoin);
+    let data = "";
 
-    return response.data[0].flags.png;
+    switch (countryCoin) {
+      case "USD":
+        data = response.data[16].flags.png;
+        break;
+      case "EUR":
+        data = "https://img.freepik.com/vetores-gratis/ilustracao-da-bandeira-da-uniao-europeia_53876-27018.jpg?semt=ais_hybrid&w=740";
+        break;
+      case "AUD":
+        data = "https://imagepng.org/bandeira-da-australia/bandeira-australia/";
+        break;
+      default:
+        data = response.data[0].flags.png;
+    }
+
+    return data;
   } catch (error) {
     console.log(error);
   }
