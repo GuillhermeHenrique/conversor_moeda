@@ -29,7 +29,7 @@ export const getCountryFlag = async (countryCoin: string) => {
         data = "https://www.gov.br/agricultura/pt-br/assuntos/relacoes-internacionais/agro-mais-investimentos/imagens/bandeira-dos-estados-unidos.png/@@images/image.png";
         break;
       case "EUR":
-        data = "https://img.freepik.com/vetores-gratis/ilustracao-da-bandeira-da-uniao-europeia_53876-27018.jpg?semt=ais_hybrid&w=740";
+        data = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/800px-Flag_of_Europe.svg.png";
         break;
       case "AUD":
         data = "https://imagepng.org/bandeira-da-australia/bandeira-australia/";

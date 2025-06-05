@@ -4,7 +4,7 @@ import { getConverter, getCountryFlag, getCoinCode } from "./api/requests";
 import Select from "react-select";
 
 import "./App.css";
-import { GoArrowSwitch } from "react-icons/go";
+import { HiArrowsRightLeft } from "react-icons/hi2";
 
 function App() {
   const [conversion, setConversion] = useState<number | null>(null);
@@ -57,8 +57,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!coinPrimary || !coinSecundary || amount == 0 || amount == undefined)
-      return;
+    if (!coinPrimary || !coinSecundary) return;
+
+    if (amount == 0 || amount == undefined) return setConversion(0);
 
     handleConversion(coinPrimary, coinSecundary, amount);
   }, [coinPrimary, coinSecundary, amount]);
@@ -86,34 +87,47 @@ function App() {
         <div className="title">
           <p>Conversor de Moeda</p>
         </div>
-        <div className="container-input">
-          <input
-            type="number"
-            defaultValue={1}
-            onChange={(e) => setAmount(Number(e.target.value))}
-          />
-          <input type="number" value={conversion?.toFixed(2) || ""} readOnly />
+        <div className="conversion-text">
+          <p>
+            {amount} {coinPrimary} igual a {conversion?.toFixed(2)}{" "}
+            {coinSecundary}
+          </p>
         </div>
         <div className="container-select">
-          <Select
-            options={options}
-            value={options.find((option) => option.value === coinPrimary)}
-            className="select"
-            classNamePrefix="my"
-            onChange={(selectedOption) =>
-              setCoinPrimary(selectedOption?.value || "")
-            }
-          />
-          <GoArrowSwitch className="icon-arrows" onClick={handleReverse} />
-          <Select
-            options={options}
-            value={options.find((option) => option.value === coinSecundary)}
-            className="select"
-            classNamePrefix="my"
-            onChange={(selectedOption) =>
-              setCoinSecundary(selectedOption?.value || "")
-            }
-          />
+          <div className="select-primary">
+            <input
+              className="input"
+              type="number"
+              defaultValue={1}
+              onChange={(e) => setAmount(Number(e.target.value))}
+            />
+            <Select
+              options={options}
+              value={options.find((option) => option.value === coinPrimary)}
+              className="select"
+              classNamePrefix="my"
+              onChange={(selectedOption) =>
+                setCoinPrimary(selectedOption?.value || "")
+              }
+            />
+          </div>
+          <HiArrowsRightLeft className="icon-arrows" onClick={handleReverse} />
+          <div className="select-secundary">
+            <input
+              className="input"
+              type="number"
+              value={conversion?.toFixed(2) || ""}
+              readOnly
+            />
+            <Select
+              options={options}
+              value={options.find((option) => option.value === coinSecundary)}
+              className="select"
+              onChange={(selectedOption) =>
+                setCoinSecundary(selectedOption?.value || "")
+              }
+            />
+          </div>
         </div>
       </div>
     </div>
