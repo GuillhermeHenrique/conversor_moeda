@@ -68,14 +68,16 @@
   font-size: 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   cursor: pointer;
+  padding-left: 90px;
 }
 
 .image-select {
-  width: 40px;
-  height: 20px;
-  padding-right: 10px;
+  width: 34px;
+  height: 22px;
+  margin-right: 10px;
+  object-fit: cover;
 }
 
 .icon-arrows {

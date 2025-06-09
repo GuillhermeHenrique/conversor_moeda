@@ -59,6 +59,8 @@ function App() {
   useEffect(() => {
     if (!coinPrimary || !coinSecundary) return;
 
+    if (coinPrimary == coinSecundary) return setConversion(amount);
+
     if (amount == 0 || amount == undefined) return setConversion(0);
 
     handleConversion(coinPrimary, coinSecundary, amount);
