@@ -87,7 +87,7 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="title">
-          <p>Conversor de Moeda</p>
+          <p>Conversor de Moedas</p>
         </div>
         <div className="conversion-text">
           <p>
