@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# 💱 Conversor de Moedas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação web responsiva que converte moedas em tempo real utilizando taxas de câmbio atualizadas.  
+Construída com **React + TypeScript**, ela consome as APIs públicas **Frankfurter** e **REST Countries** para entregar conversões precisas e exibir bandeiras dos países — tudo isso em uma interface limpa e intuitiva.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✅ Funcionalidades
 
-## Expanding the ESLint configuration
+- 💡 Entrada dinâmica — insira qualquer valor e veja a conversão automaticamente.
+- 🌐 Mais de 30 moedas suportadas via API Frankfurter.
+- 🏳️ Bandeiras dos países obtidas via REST Countries para melhorar a experiência do usuário.
+- 🔄 Troca bidirecional – inverta a moeda de origem e destino com um clique.
+- ⚡ Atualização instantânea – resultados em tempo real.
+- 🧠 Totalmente tipada – desenvolvida com TypeScript de ponta a ponta.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🛠 Tecnologias
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+| Categoria     | Tecnologia                    |
+|--------------|-------------------------------|
+| Front-End     | React & TypeScript         |
+| Estilização   | CSS Modules + React‑Select    |
+| HTTP          | Axios                         |
+| Ícones        | React Icons       |
+| Ferramentas   | Vite        |
