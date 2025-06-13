@@ -10,7 +10,7 @@ Construída com **React + TypeScript**, ela consome as APIs públicas **Frankfur
 - 💡 Entrada dinâmica — insira qualquer valor e veja a conversão automaticamente.
 - 🌐 Mais de 30 moedas suportadas via API Frankfurter.
 - 🏳️ Bandeiras dos países obtidas via REST Countries para melhorar a experiência do usuário.
-- 🔄 Troca bidirecional – inverta a moeda de origem e destino com um clique.
+- 🔄 Troca bidirecional – inverta a moeda de origem e destino com apenas um clique.
 - ⚡ Atualização instantânea – resultados em tempo real.
 - 🧠 Totalmente tipada – desenvolvida com TypeScript de ponta a ponta.
 
